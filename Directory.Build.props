@@ -1,0 +1,7 @@
+<Project>
+
+    <PropertyGroup>
+        <OragonCopyright Condition=" '$(OragonCopyright)'=='' ">Copyright 2019</OragonCopyright>
+    </PropertyGroup>
+
+</Project>
