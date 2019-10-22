@@ -10,13 +10,13 @@
         <Company>oragon.io</Company>
         <Product>Oragon</Product>
         <Description>HashiCorp Vault Integration for Oragon.Spring</Description>
-        <PackageProjectUrl>https://github.com/Oragon/Oragon.Common</PackageProjectUrl>
-        <PackageIconUrl>http://gago.io/wp-content/uploads/2014/03/Oragon-Architecture-Penknife.export.png</PackageIconUrl>
-        <RepositoryUrl>https://github.com/Oragon/Oragon.Common</RepositoryUrl>
+        <PackageProjectUrl>$(PackageProjectUrl)</PackageProjectUrl>
+        <RepositoryUrl>$(RepositoryUrl)</RepositoryUrl>
+        <PackageIconUrl>http://gago.io/wp-content/uploads/2014/03/Oragon-Architecture-Penknife.export.png</PackageIconUrl>        
         <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
         <Version>1.0.0-alpha</Version>
         <Copyright>$(OragonCopyright)</Copyright>
-        <PackageTags>Oragon Architecture,  Oragon, Architecture, luiz, carlos, faria, luizcarlosfaria, oragonarchitect</PackageTags>
+        <PackageTags>Oragon Architecture, Oragon, Architecture, luiz, carlos, faria, luizcarlosfaria, oragonarchitect, gago.io, vault, hashicorp</PackageTags>
     </PropertyGroup>
 
 

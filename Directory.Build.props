@@ -1,7 +1,9 @@
 <Project>
 
     <PropertyGroup>
-        <OragonCopyright Condition=" '$(OragonCopyright)'=='' ">Copyright 2019</OragonCopyright>
+        <OragonCopyright>Copyright 2019</OragonCopyright>
+        <PackageProjectUrl>https://github.com/Oragon/Oragon.Spring.Vault</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/Oragon/Oragon.Spring.Vault</RepositoryUrl>
     </PropertyGroup>
 
 </Project>
