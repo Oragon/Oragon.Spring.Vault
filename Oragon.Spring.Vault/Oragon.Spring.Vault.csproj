@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Oragon.Common" Version="2.3.1" />
+    <PackageReference Include="Oragon.Spring.Core" Version="2.0.3-alpha" />
+    <PackageReference Include="VaultSharp" Version="0.11.1002" />
+  </ItemGroup>
+
+</Project>

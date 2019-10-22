@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net" xmlns:aop="http://www.springframework.net/aop">
+
+  <object name="TokenAuthMethodInfo" type="VaultSharp.V1.AuthMethods.Token.TokenAuthMethodInfo, VaultSharp">
+      <constructor-arg name="vaultToken" value="myroot" />
+  </object>
+
+    <object name="VaultClientSettings" type="VaultSharp.VaultClientSettings, VaultSharp">
+        <constructor-arg name="vaultServerUriWithPort" value="http://localhost:1234" />
+        <constructor-arg name="authMethodInfo" ref="TokenAuthMethodInfo" />
+    </object>
+
+    <object name="VaultClient" type="VaultSharp.VaultClient, VaultSharp">
+        <constructor-arg name="vaultClientSettings" ref="VaultClientSettings" />
+    </object>
+
+    <object name="KeyValueResolver" type="Oragon.Spring.Vault.KeyValueResolver, Oragon.Spring.Vault">
+        <constructor-arg name="client" ref="VaultClient" />
+        <property name="Path" value="demo/teste" />
+        <property name="Key" value="x" />
+    </object>
+
+
+
+</objects>
