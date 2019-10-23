@@ -1,15 +1,22 @@
 pipeline {
-    agent {
-        docker { 
-            alwaysPull false
-            image 'mcr.microsoft.com/dotnet/core/sdk:3.0'
-            reuseNode false
-            args '-u root:root'
-        }
+    
+    agent none
+
+    environment {
+        COMPOSE_PROJECT_NAME = "${env.JOB_NAME}-${env.BUILD_ID}"
     }
     stages {
       
         stage('Build') {
+
+    agent {
+                dockerfile {
+                    // alwaysPull false
+                    // image 'microsoft/dotnet:2.1-sdk'
+                    // reuseNode false
+            args '-u root:root'
+        }
+    }
 
             steps {
 
@@ -21,6 +28,7 @@ pipeline {
 
         }
 
+	 
         stage('Test') {
 
             agent {
@@ -59,7 +67,6 @@ pipeline {
                                      /d:sonar.exclusions="Oragon.Spring.Vault.Tests/**/*,tests/**/*,Examples/**/*,**/*.CodeGen.cs"
                         
                         dotnet build ./Oragon.Spring.Vault.sln
-
                         dotnet sonarscanner end /d:sonar.login="$SONARQUBE_KEY"
                         '''
 
@@ -70,6 +77,15 @@ pipeline {
         }
 
         stage('Pack') {
+
+            agent {
+                dockerfile {
+                    // alwaysPull false
+                    // image 'microsoft/dotnet:2.1-sdk'
+                    // reuseNode false
+                    args '-u root:root'
+                }
+            }
 
             when { buildingTag() }
 
@@ -109,6 +125,15 @@ pipeline {
 
         stage('Publish') {
 
+            agent {
+                dockerfile {
+                    // alwaysPull false
+                    // image 'microsoft/dotnet:2.1-sdk'
+                    // reuseNode false
+                    args '-u root:root'
+                }
+            }
+
             when { buildingTag() }
 
             steps {
@@ -119,7 +144,7 @@ pipeline {
 
                     withCredentials([usernamePassword(credentialsId: 'myget-oragon', passwordVariable: 'MYGET_KEY', usernameVariable: 'DUMMY' )]) {
                         
-                        sh 'for pkg in ../output-packages/*.nupkg ; do dotnet nuget push "$pkg" -k "$MYGET_KEY" -s https://www.myget.org/F/oragon/api/v3/index.json ; done'
+                        sh 'for pkg in ./output-packages/*.nupkg ; do dotnet nuget push "$pkg" -k "$MYGET_KEY" -s https://www.myget.org/F/oragon/api/v3/index.json -ss https://www.myget.org/F/oragon/symbols/api/v2/package ; done'
 
                     }
 
@@ -127,12 +152,27 @@ pipeline {
                         
                         withCredentials([usernamePassword(credentialsId: 'nuget-luizcarlosfaria', passwordVariable: 'NUGET_KEY', usernameVariable: 'DUMMY')]) {
 
-                            sh 'for pkg in ../output-packages/*.nupkg ; do dotnet nuget push "$pkg" -k "$NUGET_KEY" -s https://api.nuget.org/v3/index.json ; done'
+                            sh 'for pkg in ./output-packages/*.nupkg ; do dotnet nuget push "$pkg" -k "$NUGET_KEY" -s https://api.nuget.org/v3/index.json ; done'
 
                         }
 
                     }                    
                 }
+            }
+        }
+    }
+    post {
+
+        always {
+            node('master'){
+                
+                sh  '''
+                
+               
+
+                '''
+
+
             }
         }
     }
