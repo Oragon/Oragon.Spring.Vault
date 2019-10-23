@@ -56,7 +56,7 @@ pipeline {
                                 /d:sonar.test.exclusions="Oragon.Spring.Vault.Tests/**/*,tests/**/*,Examples/**/*,**/*.CodeGen.cs" \
                                      /d:sonar.exclusions="Oragon.Spring.Vault.Tests/**/*,tests/**/*,Examples/**/*,**/*.CodeGen.cs"
                         
-                        dotnet build ./Oragon.Context.sln
+                        dotnet build ./Oragon.Spring.Vault.sln
 
                         dotnet sonarscanner end /d:sonar.login="$SONARQUBE_KEY"
                         '''
