@@ -7,9 +7,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oragon.Spring.Vault", "Orag
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{3622A240-BD0D-49F7-B181-097F643A6624}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oragon.Spring.Vault.ConsoleTests", "Oragon.Spring.Vault.ConsoleTests\Oragon.Spring.Vault.ConsoleTests.csproj", "{3D8CDAA0-97D2-46B8-98E5-AEF9A8249B52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oragon.Spring.Vault.ConsoleTests", "Oragon.Spring.Vault.ConsoleTests\Oragon.Spring.Vault.ConsoleTests.csproj", "{3D8CDAA0-97D2-46B8-98E5-AEF9A8249B52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oragon.Spring.Vault.Tests", "Oragon.Spring.Vault.Tests\Oragon.Spring.Vault.Tests.csproj", "{F75F4275-0A12-44CC-8C3C-4DA38C9C3B15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oragon.Spring.Vault.Tests", "Oragon.Spring.Vault.Tests\Oragon.Spring.Vault.Tests.csproj", "{F75F4275-0A12-44CC-8C3C-4DA38C9C3B15}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DE4371ED-E7F6-4351-8B5B-4F4E3159991D}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Jenkinsfile = Jenkinsfile
+		NuGet.Config = NuGet.Config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

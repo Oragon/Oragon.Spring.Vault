@@ -13,8 +13,6 @@ pipeline {
 
             steps {
 
-                // git branch: 'master', credentialsId: 'GITHUB_USERNAME', url: 'https://github.com/Oragon/Oragon.AspNetCore.Hosting.AMQP.git'
-                
                 echo sh(script: 'env|sort', returnStdout: true)
 
                 sh 'dotnet build ./Oragon.Spring.Vault.sln'
@@ -25,13 +23,45 @@ pipeline {
 
         stage('Test') {
 
+            agent {
+                dockerfile {
+                    // alwaysPull false
+                    // image 'microsoft/dotnet:2.1-sdk'
+                    // reuseNode false
+                    args '-u root:root -v /var/run/docker.sock:/var/run/docker.sock'
+                }
+            }
+
             steps {
 
-                // sh 'dotnet test ./Oragon.Spring.Core.Tests/Oragon.Spring.Core.Tests.csproj --configuration Debug --output ../output--core-tests'
+                withCredentials([usernamePassword(credentialsId: 'SonarQube', passwordVariable: 'SONARQUBE_KEY', usernameVariable: 'DUMMY' )]) {
 
-                // sh 'dotnet test ./Oragon.Spring.Aop.Tests/Oragon.Spring.Aop.Tests.csproj --configuration Debug --output ../output-aop-tests'
+                    sh  '''
 
-                echo 'Disabled at this time'
+                        export PATH="$PATH:/root/.dotnet/tools"
+
+                        dotnet test ./Oragon.Spring.Vault.Tests/Oragon.Spring.Vault.Tests.csproj \
+                            --configuration Debug \
+                            --output ../output-tests  \
+                            /p:CollectCoverage=true \
+                            /p:CoverletOutputFormat=opencover \
+                            /p:CoverletOutput='/output-coverage/coverage.xml' \
+                            /p:Exclude="[Oragon.*.Tests]*"
+
+                        dotnet sonarscanner begin /k:"Oragon-Context" \
+                            /d:sonar.host.url="http://sonar.oragon.io" \
+                            /d:sonar.login="$SONARQUBE_KEY" \
+                            /d:sonar.cs.opencover.reportsPaths="/output-coverage/coverage.xml" \
+                            /d:sonar.coverage.exclusions="Oragon.Spring.Vault.Tests/**/*,tests/**/*,Examples/**/*,**/*.CodeGen.cs" \
+                                /d:sonar.test.exclusions="Oragon.Spring.Vault.Tests/**/*,tests/**/*,Examples/**/*,**/*.CodeGen.cs" \
+                                     /d:sonar.exclusions="Oragon.Spring.Vault.Tests/**/*,tests/**/*,Examples/**/*,**/*.CodeGen.cs"
+                        
+                        dotnet build ./Oragon.Context.sln
+
+                        dotnet sonarscanner end /d:sonar.login="$SONARQUBE_KEY"
+                        '''
+
+                }
 
             }
 

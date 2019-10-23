@@ -14,12 +14,17 @@
         <constructor-arg name="vaultClientSettings" ref="VaultClientSettings" />
     </object>
 
-    <object name="KeyValueResolver" type="Oragon.Spring.Vault.KeyValueResolver, Oragon.Spring.Vault">
+
+    <object name="KeyValueManager" type="Oragon.Spring.Vault.KeyValueManager, Oragon.Spring.Vault">
         <constructor-arg name="client" ref="VaultClient" />
         <property name="Path" value="demo/teste" />
-        <property name="Key" value="x" />
+        <property name="TTL" value="00:00:10" />
     </object>
 
+    <object name="KeyValueResolver" type="Oragon.Spring.Vault.KeyValueResolver, Oragon.Spring.Vault">
+        <constructor-arg name="manager" ref="KeyValueManager" />
+        <property name="Key" value="x" />
+    </object>
 
 
 </objects>
