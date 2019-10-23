@@ -32,6 +32,8 @@ pipeline {
                 }
             }
 
+            when { not {buildingTag() } }
+
             steps {
 
                 withCredentials([usernamePassword(credentialsId: 'SonarQube', passwordVariable: 'SONARQUBE_KEY', usernameVariable: 'DUMMY' )]) {
