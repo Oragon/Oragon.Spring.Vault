@@ -24,7 +24,7 @@ RUN dotnet tool install --global coverlet.console
 #RUN cat /root/.dotnet/tools/.store/dotnet-sonarscanner/4.3.1/dotnet-sonarscanner/4.3.1/tools/netcoreapp2.1/any/sonar-scanner-3.2.0.1227/bin/sonar-scanner
 
 
-#BEGIN COPY FROM https://github.com/docker-library/openjdk/blob/master/11/jre/slim/Dockerfile
+#BEGIN COPY FROM https://github.com/docker-library/openjdk/blob/master/8/jre/slim/Dockerfile
 
 RUN set -eux; \
 	apt-get update; \
@@ -37,16 +37,16 @@ RUN set -eux; \
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
 
-ENV JAVA_HOME /usr/local/openjdk-11
+ENV JAVA_HOME /usr/local/openjdk-8
 ENV PATH $JAVA_HOME/bin:$PATH
 
 # backwards compatibility shim
 RUN { echo '#/bin/sh'; echo 'echo "$JAVA_HOME"'; } > /usr/local/bin/docker-java-home && chmod +x /usr/local/bin/docker-java-home && [ "$JAVA_HOME" = "$(docker-java-home)" ]
 
 # https://adoptopenjdk.net/upstream.html
-ENV JAVA_VERSION 11.0.5
-ENV JAVA_BASE_URL https://github.com/AdoptOpenJDK/openjdk11-upstream-binaries/releases/download/jdk-11.0.5%2B10/OpenJDK11U-jre_
-ENV JAVA_URL_VERSION 11.0.5_10
+ENV JAVA_VERSION 8u232
+ENV JAVA_BASE_URL https://github.com/AdoptOpenJDK/openjdk8-upstream-binaries/releases/download/jdk8u232-b09/OpenJDK8U-jre_
+ENV JAVA_URL_VERSION 8u232b09
 # https://github.com/docker-library/openjdk/issues/320#issuecomment-494050246
 
 RUN set -eux; \
@@ -122,6 +122,6 @@ RUN set -eux; \
 	ldconfig; \
 	\
 # basic smoke test
-	java --version
+	java -version
 
-#END COPY FROM https://github.com/docker-library/openjdk/blob/master/11/jre/slim/Dockerfile
+#END COPY FROM https://github.com/docker-library/openjdk/blob/master/8/jre/slim/Dockerfile
