@@ -48,7 +48,7 @@ pipeline {
                             /p:CoverletOutput='/output-coverage/coverage.xml' \
                             /p:Exclude="[Oragon.*.Tests]*"
 
-                        dotnet sonarscanner begin /k:"Oragon-Context" \
+                        dotnet sonarscanner begin /k:"oragon-spring-vault" \
                             /d:sonar.host.url="http://sonar.oragon.io" \
                             /d:sonar.login="$SONARQUBE_KEY" \
                             /d:sonar.cs.opencover.reportsPaths="/output-coverage/coverage.xml" \
